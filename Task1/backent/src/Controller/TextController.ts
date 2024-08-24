@@ -53,3 +53,31 @@ export const getText = async (req: Request, res: Response, next: NextFunction) =
         })
     }
 }
+
+export const deleteText = async (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.body
+    console.log(req.body);
+    
+    try {
+        const success = await prisma.user.delete({
+            where: {
+                id: id
+            }
+        })
+        if (success) {
+            res.send({
+                success: true,
+            })
+        } else {
+            res.send({
+                success: false,
+                data: "Somthing went error"
+            })
+        }
+    } catch (error) {
+        res.send({
+            success: false,
+            data: error
+        })
+    }
+}

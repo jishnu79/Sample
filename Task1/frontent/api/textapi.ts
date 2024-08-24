@@ -4,7 +4,7 @@ const API = axios.create({ baseURL: "http://127.0.0.1:3001" })
 export const sentText = async (data: any) => {
     try {
         const res = await API.post('/api/createMsg', data)
-        if (res.data.success) {
+        if (res?.data?.success) {
             return res.data
         }
     } catch (error) {
@@ -15,8 +15,19 @@ export const sentText = async (data: any) => {
 export const getText = async () => {
     try {
         const res = await API.get('/api/getMsg')
-        if (res.data.success) {
+        if (res?.data?.success) {
             return res.data
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const deleteApi = async (id: number) => {
+    try {
+        const res = await API.post('/api/deleteText', { id })
+        if (res?.data?.success) {
+            return res?.data?.success
         }
     } catch (error) {
         console.log(error);
