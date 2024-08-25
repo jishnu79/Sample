@@ -1,8 +1,8 @@
+import React, { useMemo } from 'react';
 import { deleteApi } from '@/api/textapi';
 import { format } from 'date-fns/format';
-import React, { useMemo } from 'react';
-import toast from 'react-hot-toast';
 import { HiArchiveBoxXMark } from 'react-icons/hi2';
+import toast from 'react-hot-toast';
 
 interface Text {
     data?: Record<string, any>
@@ -11,14 +11,17 @@ interface Text {
 const Cards: React.FC<Text> = ({ data }) => {
     const deleteText = (id: number) => {
         if (id) {
-            deleteApi(id).then((dat)=>{
-               if (dat) {
-                toast.success("Deleted!")
-               }else{
-                toast.error("Try agin")
-               }
-            })
-        }else{
+            if (confirm("Are you sure?")) {
+                deleteApi(id).then((dat) => {
+                    if (dat) {
+                        toast.success("Deleted!")
+                    } else {
+                        toast.error("Try agin")
+                    }
+                })
+            }
+
+        } else {
             toast.error("Tryagin")
         }
     }
@@ -26,7 +29,7 @@ const Cards: React.FC<Text> = ({ data }) => {
         if (!data?.created_at) {
             return null
         } else {
-            return format(new Date(data.created_at), 'MMMM yyyy , h:mm a')
+            return format(new Date(data.created_at), ' yyyy MMMM dd, h:mm a')
         }
     }, [data?.created_at])
     return (

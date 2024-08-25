@@ -32,7 +32,7 @@ export default function Home() {
   return (
     <>
       {/* Header */}
-      <div className="bg-black flex items-center gap-5">
+      <div className="bg-black flex items-center gap-5 p-4">
         <RxBorderWidth color="white" />
         <h1 className=" text-white text-xl">Notes</h1>
       </div>
